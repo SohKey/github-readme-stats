@@ -70,9 +70,7 @@ export default async (req, res) => {
 
     res.setHeader(
       "Cache-Control",
-      `max-age=${
-        cacheSeconds / 2
-      }, s-maxage=${cacheSeconds}, stale-while-revalidate=${CONSTANTS.THIRTY_MINUTES}`,
+      `no-cache`,
     );
 
     return res.send(
