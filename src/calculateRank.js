@@ -64,7 +64,7 @@ function calculateRank({
     if (rank <= RANK_B_PLUS) return "B+";
     return "B";
   })();
-
+  if (rank > RANK_A) return { level: "A+", score: 25 };
   return { level, score: rank * 100 };
 }
 
