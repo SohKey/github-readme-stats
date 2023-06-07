@@ -40,9 +40,9 @@ export default async (req, res) => {
     const repoData = await fetchRepo(username, repo);
 
     let cacheSeconds = clampValue(
-      parseInt(cache_seconds || CONSTANTS.FOUR_HOURS, 10),
-      CONSTANTS.FOUR_HOURS,
-      CONSTANTS.ONE_DAY,
+      parseInt(cache_seconds || CONSTANTS.TWO_MINUTES, 10),
+      CONSTANTS.TWO_MINUTES,
+      CONSTANTS.FIVE_MINUTES,
     );
 
     /*
@@ -55,14 +55,14 @@ export default async (req, res) => {
     const isBothOver1K = stars > 1000 && forks > 1000;
     const isBothUnder1 = stars < 1 && forks < 1;
     if (!cache_seconds && (isBothOver1K || isBothUnder1)) {
-      cacheSeconds = CONSTANTS.FOUR_HOURS;
+      cacheSeconds = CONSTANTS.THIRTY_MINUTES;
     }
 
     res.setHeader(
       "Cache-Control",
       `max-age=${
         cacheSeconds / 2
-      }, s-maxage=${cacheSeconds}, stale-while-revalidate=${CONSTANTS.ONE_DAY}`,
+      }, s-maxage=${cacheSeconds}, stale-while-revalidate=${CONSTANTS.THIRTY_MINUTES}`,
     );
 
     return res.send(
