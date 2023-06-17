@@ -64,8 +64,7 @@ export default async (req, res) => {
     );
 
     res.setHeader(
-      "Cache-Control",
-      `no-cache`,
+      "Cache-Control", `no-cache, no-store, must-revalidate`
     );
 
     return res.send(
